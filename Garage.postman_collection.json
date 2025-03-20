@@ -1,0 +1,193 @@
+{
+	"info": {
+		"_postman_id": "316fd873-25cf-4a50-be9e-3cfc4622dc18",
+		"name": "Garage",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38646941"
+	},
+	"item": [
+		{
+			"name": "http://localhost:5000/users/update/67dc4d0b845a5ea49fe7e08f",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGM0ZDBiODQ1YTVlYTQ5ZmU3ZTA4ZiIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NDI1MDE5ODAsImV4cCI6MTc0MjUzNzk4MH0.s691k833tH5-YC-MMxhLcQLz3Kd_BldToSQm8OR3-H4",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGM0ZDBiODQ1YTVlYTQ5ZmU3ZTA4ZiIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NDI1MDE5ODAsImV4cCI6MTc0MjUzNzk4MH0.s691k833tH5-YC-MMxhLcQLz3Kd_BldToSQm8OR3-H4",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nom\": \"Jean Dupont Modifié\",\r\n  \"adresseMail\": \"jean@example.com\",\r\n  \"numeroTel\": \"+26\",\r\n  \"photo\": \"https://nouvelle-url-image.com/photo.png\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/users/67dc4d0b845a5ea49fe7e08f",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"67dc4d0b845a5ea49fe7e08f"
+					],
+					"query": [
+						{
+							"key": "",
+							"value": null,
+							"disabled": true
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/users/login",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"identifiant\": \"jean@example.com\",\r\n    \"password\": \"bentencaca\"\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/users/login",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/pieces/bulk",
+			"protocolProfileBehavior": {
+				"disableBodyPruning": true
+			},
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "GET",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  { \"mere\": \"Moteur\", \"fille\": \"Filtre à air\" },\r\n  { \"mere\": \"Transmission\" },\r\n  { \"mere\": \"Frein\", \"fille\": \"Plaquette de frein\" },\r\n  { \"mere\": \"Suspension\", \"fille\": \"Amortisseur avant\" },\r\n  { \"mere\": \"Batterie\", \"fille\": \"Borne positive\" },\r\n  { \"mere\": \"Échappement\", \"fille\": \"Silencieux arrière\" },\r\n  { \"mere\": \"Direction\", \"fille\": \"Rotule de direction\" },\r\n  { \"mere\": \"Refroidissement\", \"fille\": \"Radiateur\" },\r\n  { \"mere\": \"Embrayage\", \"fille\": \"Disque d'embrayage\" },\r\n  { \"mere\": \"Carburant\", \"fille\": \"Pompe à essence\" }\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/pieces/bulk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"pieces",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/type-service-routes/bulk",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGM0ZDBiODQ1YTVlYTQ5ZmU3ZTA4ZiIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NDI1MDI0MTgsImV4cCI6MTc0MjUzODQxOH0.9xSEAGEhERD6jZl0YADXCx4Sq6YqCjxAqyK_n1QF7jo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "[\r\n  { \"nom\": \"Entretien\", \"partie\": \"Moteur\", \"typeEntretien\": \"Vidange\" },\r\n  { \"nom\": \"Entretien\", \"partie\": \"Roues\", \"typeEntretien\": \"Pneus\" },\r\n  { \"nom\": \"Entretien\", \"partie\": \"Freins\", \"typeEntretien\": \"Freins\" },\r\n  { \"nom\": \"Entretien\", \"partie\": \"Climatisation\", \"typeEntretien\": \"Climatisation\" },\r\n  { \"nom\": \"Entretien\", \"partie\": \"Divers\", \"typeEntretien\": \"Autre\" },\r\n\r\n  { \"nom\": \"Diagnostic\", \"typeEntretien\": \"Diagnostic moteur\" },\r\n  { \"nom\": \"Diagnostic\", \"typeEntretien\": \"Diagnostic freinage\" },\r\n  { \"nom\": \"Diagnostic\", \"typeEntretien\": \"Diagnostic électrique\" },\r\n  { \"nom\": \"Diagnostic\",\"typeEntretien\": \"Diagnostic climatisation\" },\r\n  { \"nom\": \"Diagnostic\", \"typeEntretien\": \"Diagnostic suspension\" },\r\n\r\n  { \"nom\": \"Réparation\"}\r\n]\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/type-service-routes/bulk",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"type-service-routes",
+						"bulk"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/type-service-routes",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:5000/type-service-routes",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"type-service-routes"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
