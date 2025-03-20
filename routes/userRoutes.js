@@ -4,9 +4,7 @@ const jwt = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const User = require("../models/User");
 const authMiddleware = require("../middlewares/authMiddleware");
-
 const router = express.Router();
-const JWT_SECRET = "monSuperSecret"; // Remplace par une clé plus sécurisée en production
 
 // Route d'inscription
 router.post(
@@ -66,8 +64,8 @@ router.post(
         if (!isMatch) return res.status(400).json({ message: "Mot de passe incorrect" });
   
         // Générer un token JWT
-        const token = jwt.sign({ id: user._id, role: user.role }, JWT_SECRET, { expiresIn: "1h" });
-  
+        const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "10h" });
+        console.log(token);
         res.json({ token, user: { id: user._id, nom: user.nom, role: user.role } });
       } catch (error) {
         res.status(500).json({ error: error.message });
@@ -76,28 +74,41 @@ router.post(
   );
   
 
-// Récupérer le profil utilisateur (protégé par JWT)
-router.get("/profile", authMiddleware, async (req, res) => {
+// Récupérer le profil utilisateur ou la liste des utilisateurs
+router.get("/:id?", async (req, res) => {
   try {
-    const user = await User.findById(req.user.id).select("-password");
-    if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
+    let userId = req.params.id || req.user?.id;
 
-    res.json(user);
+    if (userId) {
+      const user = await User.findById(userId).select("-password");
+      if (!user) return res.status(404).json({ message: "Utilisateur non trouvé" });
+
+      return res.json(user);
+    }
+    const users = await User.find().select("-password");
+    res.json(users);
+
   } catch (error) {
     res.status(500).json({ error: error.message });
   }
 });
 
+
 // Mettre à jour un utilisateur (protégé par JWT)
-router.put("/update", authMiddleware, async (req, res) => {
+router.put("/:id", authMiddleware, async (req, res) => {
   try {
+    const { id } = req.params; // Récupérer l'ID depuis l'URL
     const { nom, adresseMail, numeroTel, photo } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
-      req.user.id,
+      id,
       { nom, adresseMail, numeroTel, photo },
       { new: true, runValidators: true }
     ).select("-password");
+
+    if (!updatedUser) {
+      return res.status(404).json({ message: "Utilisateur non trouvé" });
+    }
 
     res.json({ message: "Utilisateur mis à jour", user: updatedUser });
   } catch (error) {
@@ -105,8 +116,9 @@ router.put("/update", authMiddleware, async (req, res) => {
   }
 });
 
+
 // Supprimer un utilisateur (protégé par JWT)
-router.delete("/delete/:id", authMiddleware, async (req, res) => {
+router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.json({ message: "Utilisateur supprimé !" });
