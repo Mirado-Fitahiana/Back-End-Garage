@@ -188,6 +188,178 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "http://localhost:5000/services",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGM0ZDBiODQ1YTVlYTQ5ZmU3ZTA4ZiIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NDI1MDI0MTgsImV4cCI6MTc0MjUzODQxOH0.9xSEAGEhERD6jZl0YADXCx4Sq6YqCjxAqyK_n1QF7jo",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "// {\r\n//   \"user\": \"60c72b2f9b1d8b3f10a1a4e7\",\r\n//   \"typeService\": \"67dc7f79f59927cdfb3772c0\",\r\n//   \"avecPiece\": false,\r\n//   \"prixPiece\": 0,\r\n//   \"description\": \"Vidange complète avec changement de filtre\",\r\n//   \"visibleSymptom\": false,\r\n//   \"image\": \"https://example.com/entretien.jpg\",\r\n//   \"typeEntretien\": \"Vidange\",\r\n//   \"pieceAreparer\": \"\",\r\n//   \"dateDernièreEntretien\": \"2024-03-01\",\r\n//   \"dateSuggestionVisite\": \"2024-09-01\",\r\n//   \"heureSuggestionVisite\": \"10:00\",\r\n//   \"dateFixeVisite\": \"2024-09-05\",\r\n//   \"heureFixeVisite\": \"14:30\",\r\n//   \"montantFinal\": 120\r\n// }\r\n{\r\n  \"user\": \"67daea72ddadbe8d373c9fc6\",\r\n  \"typeService\": \"67dc7f79f59927cdfb3772c2\",\r\n  \"piece\": [\"67dc5b0cdeee66690880ed10\", \"67dc7368cf556a2bbce7abb8\"],\r\n  \"avecPiece\": [true, false],\r\n  \"prixPiece\": [350,0],\r\n  \"description\": \"Remplacement des plaquettes et disques de frein\",\r\n  \"visibleSymptom\": true,\r\n  \"image\": \"https://example.com/reparation.jpg\",\r\n  \"typeEntretien\": \"Freinage\",\r\n  \"pieceAreparer\": \"Plaquettes, disques\",\r\n  \"dateDernièreEntretien\": \"2023-12-10\",\r\n  \"dateSuggestionVisite\": \"2024-06-15\",\r\n  \"heureSuggestionVisite\": \"09:00\",\r\n  \"dateFixeVisite\": \"2024-06-20\",\r\n  \"heureFixeVisite\": \"15:00\",\r\n  \"montantFinal\": 450\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/services",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"services"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register client",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nom\": \"test\",\r\n  \"adresseMail\": \"test@example.com\",\r\n  \"numeroTel\": \"+261341234588\",\r\n  \"photo\": \"https://res.cloudinary.com/djw5i7vxf/image/upload/v1619001972/user-icon.png\",\r\n  \"password\": \"bobobo\",\r\n   \"role\": \"CLIENT\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register admin",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nom\": \"test1\",\r\n  \"adresseMail\": \"test1@example.com\",\r\n  \"numeroTel\": \"+261341234589\",\r\n  \"photo\": \"https://res.cloudinary.com/djw5i7vxf/image/upload/v1619001972/user-icon.png\",\r\n  \"password\": \"bobobo\",\r\n   \"role\": \"ADMIN\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Register mecanicien",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"nom\": \"test2\",\r\n  \"adresseMail\": \"test2@example.com\",\r\n  \"numeroTel\": \"+261341234587\",\r\n  \"photo\": \"https://res.cloudinary.com/djw5i7vxf/image/upload/v1619001972/user-icon.png\",\r\n  \"password\": \"bobobo\",\r\n   \"role\": \"MECANICIEN\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/users/register",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"users",
+						"register"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "http://localhost:5000/voitures",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY3ZGM0ZDBiODQ1YTVlYTQ5ZmU3ZTA4ZiIsInJvbGUiOiJDTElFTlQiLCJpYXQiOjE3NDI1NjI0ODYsImV4cCI6MTc0MjU5ODQ4Nn0.iWap1T3Mc48QMVsciGtofzSKGQt-bDnKQgWookpvmvg",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n  \"marque\": \"Toyota\",\r\n  \"modele\": \"Corolla\",\r\n  \"annee\": 2022,\r\n  \"immatriculation\": \"ABC-1234\",\r\n  \"typeCarburant\": \"Essence\",\r\n  \"puissance\": 130,\r\n  \"kilometrage\": 15000,\r\n  \"proprietaire\": \"67daea72ddadbe8d373c9fc6\"\r\n}\r\n",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:5000/voitures",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "5000",
+					"path": [
+						"voitures"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
