@@ -11,6 +11,7 @@ router.post("/", async (req, res) => {
       user,
       typeService,
       piece,
+      voiture,
       avecPiece,
       prixPiece,
       description,
@@ -26,7 +27,6 @@ router.post("/", async (req, res) => {
       montantFinal
     } = req.body;
 
-    // Convert `user`, `typeService`, and `piece` to ObjectId
     if (!mongoose.Types.ObjectId.isValid(user)) {
       return res.status(400).json({ error: "Invalid user ID" });
     }
@@ -42,26 +42,23 @@ router.post("/", async (req, res) => {
       });
     }
 
-    // Convert `prixPiece` to an array of Numbers
     if (prixPiece && Array.isArray(prixPiece)) {
       prixPiece = prixPiece.map(price => Number(price));
     } else {
-      prixPiece = []; // Ensure it's an array even if empty
+      prixPiece = [];
     }
 
-    // Check if `typeService` exists
     const typeServiceData = await TypeService.findById(typeService);
     if (!typeServiceData) return res.status(404).json({ error: "TypeService introuvable" });
 
-    // If "Réparation", ensure `piece` is required
     if (typeServiceData.nom === "Réparation" && (!piece || piece.length === 0)) {
       return res.status(400).json({ error: "Le champ 'piece' est obligatoire pour un service de type Réparation." });
     }
 
-    // Create new service entry
     const newService = new Service({
       user: new mongoose.Types.ObjectId(user),
       typeService: new mongoose.Types.ObjectId(typeService),
+      voiture: new mongoose.Types.ObjectId(voiture),
       piece,
       avecPiece,
       prixPiece,
@@ -85,8 +82,6 @@ router.post("/", async (req, res) => {
   }
 });
 
-
-// Obtenir tous les services
 router.get("/", async (req, res) => {
   try {
     const services = await Service.find().populate("user").populate("typeService").populate("piece");
