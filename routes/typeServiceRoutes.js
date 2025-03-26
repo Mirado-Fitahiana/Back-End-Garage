@@ -39,6 +39,18 @@ router.get("/:id?", async (req, res) => {
   }
 });
 
+// Obtenir un type de service par nom
+router.get("/nom/:nom", async (req, res) => {
+  try {
+    const typeService = await TypeService.find({ nom: req.params.nom });
+    if (!typeService || typeService.length === 0)
+      return res.status(404).json({ message: "Type de service non trouvé" });
+    res.json(typeService);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+
 // Mettre à jour un type de service
 router.put("/:id", async (req, res) => {
   try {

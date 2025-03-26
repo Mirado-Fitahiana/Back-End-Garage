@@ -18,11 +18,13 @@ router.post("/", async (req, res) => {
       image,
       typeEntretien,
       pieceAreparer,
+      date,
       dateDernièreEntretien,
       dateSuggestionVisite,
       heureSuggestionVisite,
       dateFixeVisite,
       heureFixeVisite,
+      duree,
       montantFinal
     } = req.body;
 
@@ -70,11 +72,13 @@ router.post("/", async (req, res) => {
       image,
       typeEntretien,
       pieceAreparer,
+      date,
       dateDernièreEntretien,
       dateSuggestionVisite,
       heureSuggestionVisite,
       dateFixeVisite,
       heureFixeVisite,
+      duree,
       montantFinal
     });
 
