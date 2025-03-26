@@ -11,6 +11,11 @@ const serviceSchema = new mongoose.Schema({
         ref: "TypeService",
         required: true,
     },
+    voiture: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Voiture",
+        required: true,
+    },
     piece: [
         {
         type: mongoose.Schema.Types.ObjectId,

@@ -41,7 +41,7 @@ router.post(
 router.post(
     "/login",
     [
-      body("identifiant").notEmpty().withMessage("Email ou numéro de téléphone requis"),
+      body("adresseMail").notEmpty().withMessage("Email requis"),
       body("password").notEmpty().withMessage("Le mot de passe est obligatoire")
     ],
     async (req, res) => {
@@ -49,21 +49,17 @@ router.post(
       if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
   
       try {
-        const { identifiant, password } = req.body;
+        const { adresseMail, password } = req.body;
   
-        // Vérifier si l'identifiant est un email ou un numéro de téléphone
-        const isEmail = /\S+@\S+\.\S+/.test(identifiant);
+        const isEmail = /\S+@\S+\.\S+/.test(adresseMail);
   
-        // Chercher l'utilisateur en fonction de l'email ou du numéro de téléphone
-        const user = await User.findOne(isEmail ? { adresseMail: identifiant } : { numeroTel: identifiant });
+        const user = await User.findOne(isEmail ? { adresseMail: adresseMail } : { numeroTel: adresseMail });
   
         if (!user) return res.status(400).json({ message: "Utilisateur non trouvé" });
   
-        // Vérifier le mot de passe
         const isMatch = await user.comparePassword(password);
         if (!isMatch) return res.status(400).json({ message: "Mot de passe incorrect" });
   
-        // Générer un token JWT
         const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT_SECRET, { expiresIn: "10h" });
         console.log(token);
         res.json({ token, user: { id: user._id, nom: user.nom, role: user.role } });
