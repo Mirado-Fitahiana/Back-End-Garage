@@ -25,7 +25,7 @@ mongoose.connect(process.env.MONGO_URI, {
 // Routes;
 app.use("/users", userRoutes);
 app.use("/pieces", pieceRoutes);
-app.use("/type-service-routes", typeServiceRoutes);
+app.use("/type-services", typeServiceRoutes);
 app.use("/services", serviceRoutes);
 app.use("/voitures", voitureRoutes);
 

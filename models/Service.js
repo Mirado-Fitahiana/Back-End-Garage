@@ -42,7 +42,11 @@ const serviceSchema = new mongoose.Schema({
     pieceAreparer: {
         type: String,
     },
-    dateDernièreEntretien: {
+    date: {
+        type: Date,
+        default: Date.now 
+    },
+    dateDerniereEntretien: {
         type: Date,
     },
     dateSuggestionVisite: {
@@ -55,6 +59,9 @@ const serviceSchema = new mongoose.Schema({
         type: Date,
     },
     heureFixeVisite: {
+        type: String,
+    },
+    duree: {
         type: String,
     },
     montantFinal: {
