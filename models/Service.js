@@ -4,17 +4,17 @@ const serviceSchema = new mongoose.Schema({
     user: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "User",
-        required: true,
+        required: true
     },
     typeService: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "TypeService",
-        required: true,
+        required: true
     },
     voiture: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "Voiture",
-        required: true,
+        required: true
     },
     piece: [
         {
@@ -33,44 +33,48 @@ const serviceSchema = new mongoose.Schema({
         }
     ],
     description: {
-        type: String,
+        type: String
     },
     visibleSymptom: {
-        type: Boolean,
+        type: Boolean
     },
     image: {
-        type: String,
+        type: String
     },
     typeEntretien: {
-        type: String,
+        type: String
     },
     pieceAreparer: {
-        type: String,
+        type: String
     },
     date: {
         type: Date,
         default: Date.now 
     },
     dateDerniereEntretien: {
-        type: Date,
-    },
+        type: Date
+    },  
     dateSuggestionVisite: {
-        type: Date,
+        type: Date
     },
     heureSuggestionVisite: {
-        type: String,
+        type: String
     },
     dateFixeVisite: {
-        type: Date,
+        type: Date
     },
     heureFixeVisite: {
-        type: String,
+        type: String
     },
     duree: {
-        type: String,
+        type: String
     },
     montantFinal: {
-        type: Number,
+        type: Number
+    },
+    etat: {
+        type: String,
+        required: true
     },
 }, { timestamps: true });
 
