@@ -14,7 +14,10 @@ router.post(
     body("adresseMail").isEmail().withMessage("Email invalide"),
     body("numeroTel").notEmpty().withMessage("Numéro obligatoire"),
     body("password").isLength({ min: 6 }).withMessage("Le mot de passe doit contenir au moins 6 caractères"),
-    body("role").isIn(["ADMIN", "CLIENT", "MECANICIEN"]).withMessage("Rôle invalide")
+    body("role").isIn(["ADMIN", "CLIENT", "MECANICIEN"]).withMessage("Rôle invalide"),
+    body("adresse").notEmpty().withMessage("adresse est obligatoire"),
+    body("CIN").notEmpty().withMessage("CIN est obligatoire"),
+    body("dateDeNaissance").notEmpty().withMessage("Date de naissance obligatoire"),
   ],
   async (req, res) => {
     const errors = validationResult(req);
@@ -88,17 +91,27 @@ router.get("/:id?", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+// Récupérer le profil utilisateur ou la liste des utilisateurs
+router.get("/role/:role?", async (req, res) => {
+  try {
+      const user = await User.find({role: req.params.role});
+      if (!user) return res.status(404).json({ message: "Rôle non trouvé" });
 
+      return res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Mettre à jour un utilisateur (protégé par JWT)
 router.put("/:id", authMiddleware, async (req, res) => {
   try {
     const { id } = req.params; // Récupérer l'ID depuis l'URL
-    const { nom, adresseMail, numeroTel, photo } = req.body;
+    const { nom, adresseMail, numeroTel, photo, CIN, adresse, dateDeNaissance } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { nom, adresseMail, numeroTel, photo },
+      { nom, adresseMail, numeroTel, photo, CIN, adresse, dateDeNaissance  },
       { new: true, runValidators: true }
     ).select("-password");
 
