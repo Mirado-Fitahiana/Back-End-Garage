@@ -24,13 +24,13 @@ router.post(
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
     try {
-      const { nom, adresseMail, numeroTel, password, role } = req.body;
+      const { nom, adresseMail, numeroTel, password, role, adresse, CIN, dateDeNaissance } = req.body;
 
       // Vérifier si l'utilisateur existe déjà
       let user = await User.findOne({ adresseMail });
       if (user) return res.status(400).json({ message: "Cet email est déjà utilisé" });
 
-      user = new User({ nom, adresseMail, numeroTel, password, role });
+      user = new User({ nom, adresseMail, numeroTel, password, role, adresse, CIN, dateDeNaissance });
       await user.save();
 
       res.status(201).json({ message: "Utilisateur créé avec succès !" });
