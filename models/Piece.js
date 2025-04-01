@@ -3,10 +3,10 @@ const mongoose = require("mongoose");
 const pieceSchema = new mongoose.Schema({
     mere: {
       type: String,
-      required: true,
+      required: true
     },
     fille: {
-      type: String,
+      type: String
     },
 });
 const Piece = mongoose.model("Piece", pieceSchema);
