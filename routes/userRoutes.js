@@ -135,5 +135,21 @@ router.delete("/:id", authMiddleware, async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+// Compter le nombre de mécaniciens
+router.get("/mecaniciens/count", async (req, res) => {
+  try {
+      // Recherche des utilisateurs avec le rôle "MECANICIEN"
+      const users = await User.find({ role: "MECANICIEN" });
+
+      // Vérifie si la requête a trouvé des utilisateurs
+      if (!users) return res.status(404).json({ message: "Aucun mécanicien trouvé" });
+
+      // Retourne le nombre total de mécaniciens
+      const count = users.length;
+      return res.json({ count });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 module.exports = router;

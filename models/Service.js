@@ -69,8 +69,14 @@ const serviceSchema = new mongoose.Schema({
     dureeEstimee: {
         type: String
     },
+    dureeEstimeeEnNombre: {
+        type: Number
+    },
     duree: {
         type: String
+    },
+    dureeEnNombre: {
+        type: Number
     },
     montantFinal: {
         type: Number
