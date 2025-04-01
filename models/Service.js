@@ -66,6 +66,9 @@ const serviceSchema = new mongoose.Schema({
     heureFixeVisite: {
         type: String
     },
+    dureeEstimee: {
+        type: String
+    },
     duree: {
         type: String
     },
@@ -75,6 +78,10 @@ const serviceSchema = new mongoose.Schema({
     etat: {
         type: String,
         required: true
+    },
+    mecanicien: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "User"
     },
 }, { timestamps: true });
 
