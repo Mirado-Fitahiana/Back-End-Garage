@@ -394,6 +394,27 @@ router.get("/montant-total/:year", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+router.get('/etat/:etat/mecanicien/:mecanicienId', async (req, res) => {
+  const etatParam = req.params.etat; 
+  const mecanicienId = req.params.mecanicienId;
+
+  try {
+      const services = await Service.find({ 
+          etat: etatParam, 
+          mecanicien: mecanicienId 
+      })
+      .populate('user')
+      .populate('typeService')
+      .populate('voiture')
+      .populate('piece')
+      .populate('mecanicien')
+      .exec();
+      
+      res.status(200).json(services);
+  } catch (error) {
+      res.status(500).json({ error: error.message });
+  }
+});
 
 
 
