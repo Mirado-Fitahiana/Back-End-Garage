@@ -394,14 +394,22 @@ router.get("/montant-total/:year", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+
 router.get('/etat/:etat/mecanicien/:mecanicienId', async (req, res) => {
   const etatParam = req.params.etat; 
   const mecanicienId = req.params.mecanicienId;
 
+  const todayStart = new Date();
+  todayStart.setUTCHours(0, 0, 0, 0);
+
+  const todayEnd = new Date();
+  todayEnd.setUTCHours(23, 59, 59, 999); 
+
   try {
       const services = await Service.find({ 
           etat: etatParam, 
-          mecanicien: mecanicienId 
+          mecanicien: mecanicienId,
+          dateFixeVisite: { $gte: todayStart, $lte: todayEnd } 
       })
       .populate('user')
       .populate('typeService')
@@ -415,6 +423,7 @@ router.get('/etat/:etat/mecanicien/:mecanicienId', async (req, res) => {
       res.status(500).json({ error: error.message });
   }
 });
+
 
 
 
