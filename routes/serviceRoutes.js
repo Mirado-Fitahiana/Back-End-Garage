@@ -3,8 +3,10 @@ const authMiddleware = require("../middlewares/authMiddleware");
 const Service = require("../models/Service");
 const TypeService = require("../models/TypeService");
 const mongoose = require("mongoose");
+const { getUpcomingServices } = require("../controllers/serviceController");
 
 const router = express.Router();
+router.get("/upcoming", getUpcomingServices);
 router.post("/", async (req, res) => {
   try {
     let {
@@ -90,7 +92,7 @@ router.post("/", async (req, res) => {
 
 router.get("/", async (req, res) => {
   try {
-    const services = await Service.find().populate("user").populate("typeService").populate("piece").populate("voiture");
+    const services = await Service.find().populate("user").populate("typeService").populate("piece").populate("voiture").populate("mecanicien");
     res.status(200).json(services);
   } catch (error) {
     res.status(500).json({ error: error.message });
@@ -425,8 +427,4 @@ router.get('/etat/:etat/mecanicien/:mecanicienId', async (req, res) => {
       res.status(500).json({ error: error.message });
   }
 });
-
-
-
-
 module.exports = router;
