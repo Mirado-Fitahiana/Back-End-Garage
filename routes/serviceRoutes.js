@@ -105,7 +105,8 @@ router.get("/user/:isUser?", async (req, res) => {
         .populate("user")
         .populate("typeService")
         .populate("piece")
-        .populate("voiture");
+        .populate("voiture")
+        .populate('mecanicien');
       if (!service) return res.status(404).json({ message: "Service non trouvé" });
       return res.json(service);
     }
@@ -114,7 +115,8 @@ router.get("/user/:isUser?", async (req, res) => {
       .populate("user")
       .populate("typeService")
       .populate("piece")
-      .populate("voiture");
+      .populate("voiture")
+      .populate('mecanicien');
     res.status(200).json(services);
   } catch (error) {
     res.status(500).json({ error: error.message });
