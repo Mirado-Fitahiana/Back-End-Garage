@@ -38,7 +38,20 @@ router.get("/:id", async (req, res) => {
         res.status(500).json({ message: error.message });
     }
 });
+router.get("/client/:client?", async (req, res) => {
+    try {
+        const facture = await Facture.find({ client: req.params.client })
+            .populate("client")
+            .populate("typeService")
+            .populate("service");
 
+        if (!facture) return res.status(404).json({ message: "Facture non trouvée" });
+
+        res.status(200).json(facture);
+    } catch (error) {
+        res.status(500).json({ message: error.message });
+    }
+});
 router.put("/:id", async (req, res) => {
     try {
         const updatedFacture = await Facture.findByIdAndUpdate(
