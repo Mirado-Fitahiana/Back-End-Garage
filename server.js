@@ -6,6 +6,7 @@ const pieceRoutes = require("./routes/pieceRoutes");
 const typeServiceRoutes = require("./routes/typeServiceRoutes");
 const serviceRoutes = require("./routes/serviceRoutes");
 const voitureRoutes = require("./routes/voitureRoutes");
+const factureRoutes = require("./routes/factureRoutes");
 require('dotenv').config();
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -28,7 +29,7 @@ app.use("/pieces", pieceRoutes);
 app.use("/type-services", typeServiceRoutes);
 app.use("/services", serviceRoutes);
 app.use("/voitures", voitureRoutes);
-
+app.use("/factures", factureRoutes);
 // Démarrer le serveur
 app.listen(PORT, () => console.log(`Serveur démarré sur le port
 ${PORT}`));

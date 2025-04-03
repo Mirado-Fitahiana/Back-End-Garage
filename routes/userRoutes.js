@@ -14,20 +14,23 @@ router.post(
     body("adresseMail").isEmail().withMessage("Email invalide"),
     body("numeroTel").notEmpty().withMessage("Numéro obligatoire"),
     body("password").isLength({ min: 6 }).withMessage("Le mot de passe doit contenir au moins 6 caractères"),
-    body("role").isIn(["ADMIN", "CLIENT", "MECANICIEN"]).withMessage("Rôle invalide")
+    body("role").isIn(["ADMIN", "CLIENT", "MECANICIEN"]).withMessage("Rôle invalide"),
+    body("adresse").notEmpty().withMessage("adresse est obligatoire"),
+    body("CIN").notEmpty().withMessage("CIN est obligatoire"),
+    body("dateDeNaissance").notEmpty().withMessage("Date de naissance obligatoire"),
   ],
   async (req, res) => {
     const errors = validationResult(req);
     if (!errors.isEmpty()) return res.status(400).json({ errors: errors.array() });
 
     try {
-      const { nom, adresseMail, numeroTel, password, role } = req.body;
+      const { nom, adresseMail, numeroTel, password, role, adresse, CIN, dateDeNaissance } = req.body;
 
       // Vérifier si l'utilisateur existe déjà
       let user = await User.findOne({ adresseMail });
       if (user) return res.status(400).json({ message: "Cet email est déjà utilisé" });
 
-      user = new User({ nom, adresseMail, numeroTel, password, role });
+      user = new User({ nom, adresseMail, numeroTel, password, role, adresse, CIN, dateDeNaissance });
       await user.save();
 
       res.status(201).json({ message: "Utilisateur créé avec succès !" });
@@ -88,17 +91,27 @@ router.get("/:id?", async (req, res) => {
     res.status(500).json({ error: error.message });
   }
 });
+// Récupérer le profil utilisateur ou la liste des utilisateurs
+router.get("/role/:role?", async (req, res) => {
+  try {
+      const user = await User.find({role: req.params.role});
+      if (!user) return res.status(404).json({ message: "Rôle non trouvé" });
 
+      return res.json(user);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
 
 // Mettre à jour un utilisateur (protégé par JWT)
 router.put("/:id", authMiddleware, async (req, res) => {
   try {
     const { id } = req.params; // Récupérer l'ID depuis l'URL
-    const { nom, adresseMail, numeroTel, photo } = req.body;
+    const { nom, adresseMail, numeroTel, photo, CIN, adresse, dateDeNaissance } = req.body;
 
     const updatedUser = await User.findByIdAndUpdate(
       id,
-      { nom, adresseMail, numeroTel, photo },
+      { nom, adresseMail, numeroTel, photo, CIN, adresse, dateDeNaissance  },
       { new: true, runValidators: true }
     ).select("-password");
 
@@ -118,6 +131,22 @@ router.delete("/:id", authMiddleware, async (req, res) => {
   try {
     await User.findByIdAndDelete(req.params.id);
     res.json({ message: "Utilisateur supprimé !" });
+  } catch (error) {
+    res.status(500).json({ error: error.message });
+  }
+});
+// Compter le nombre de mécaniciens
+router.get("/mecaniciens/count", async (req, res) => {
+  try {
+      // Recherche des utilisateurs avec le rôle "MECANICIEN"
+      const users = await User.find({ role: "MECANICIEN" });
+
+      // Vérifie si la requête a trouvé des utilisateurs
+      if (!users) return res.status(404).json({ message: "Aucun mécanicien trouvé" });
+
+      // Retourne le nombre total de mécaniciens
+      const count = users.length;
+      return res.json({ count });
   } catch (error) {
     res.status(500).json({ error: error.message });
   }

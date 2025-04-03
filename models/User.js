@@ -33,7 +33,22 @@ const userSchema = new mongoose.Schema({
   photo: {
     type: String,
     default: "https://res.cloudinary.com/djw5i7vxf/image/upload/v1619001972/user-icon-6_k4v0jw.png"
-  }
+  },
+  adresse: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  CIN: {
+    type: String,
+    required: true,
+    trim: true
+  },
+  dateDeNaissance: {
+    type: Date,
+    required: true,
+    trim: true
+  },
 }, { timestamps: true });
 
 userSchema.pre("save", async function (next) {
