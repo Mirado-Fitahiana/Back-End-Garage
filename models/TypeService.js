@@ -10,6 +10,9 @@ const typeServiceSchema = new mongoose.Schema({
     },
     typeEntretien: {
         type: String
+    },
+    duree:{
+        type: String
     }
 });
 const TypeService = mongoose.model("TypeService", typeServiceSchema);
