@@ -89,6 +89,9 @@ const serviceSchema = new mongoose.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: "User"
     },
+    prixHeure:{
+        type: Number
+    },
 }, { timestamps: true });
 
 serviceSchema.pre("validate", async function (next) {
